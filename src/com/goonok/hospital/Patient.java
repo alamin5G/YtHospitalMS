@@ -10,6 +10,8 @@ public class Patient {
     private Connection connection;
     private Scanner input;
 
+    public Patient(){}
+
     public Patient(Connection connection, Scanner input) {
         this.connection = connection;
         this.input = input;

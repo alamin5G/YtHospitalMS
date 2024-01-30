@@ -10,6 +10,8 @@ public class Doctor {
 
     private Connection connection;
 
+    public Doctor(){}
+
     public Doctor(Connection connection) {
         this.connection = connection;
     }
