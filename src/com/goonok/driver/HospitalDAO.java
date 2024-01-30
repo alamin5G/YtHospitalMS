@@ -13,7 +13,7 @@ public class HospitalDAO {
 
     public void databaseConnect(){
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.driver");
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
