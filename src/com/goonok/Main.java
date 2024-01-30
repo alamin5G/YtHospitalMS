@@ -1,5 +1,6 @@
 package com.goonok;
 
+import com.goonok.driver.HospitalDAO;
 import com.goonok.hospital.Doctor;
 import com.goonok.hospital.Patient;
 
@@ -7,7 +8,23 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-    private static final String url = "jdbc:mysql://127.0.0.1:3306/hospital";
+
+
+    public static void main(String[] args) throws ClassNotFoundException {
+
+        /**
+         * I have try to clean the main function as much as possible.
+         * That is why I moved all of the codes from main function to
+         * @Class HospitalDAO.java
+         * if you wish, you could run the code from main function as well.
+         * just comment on this main function and
+         * remove the below comment to get works from main function.
+         */
+        HospitalDAO dao = new HospitalDAO();
+        dao.databaseConnect();
+
+    }
+   /* private static final String url = "jdbc:mysql://127.0.0.1:3306/hospital";
     private static final String username = "root";
     private static final String password = "252646";
 
@@ -125,5 +142,5 @@ public class Main {
                 throw new RuntimeException(e);
             }
             return false;
-        }
+        }*/
 }

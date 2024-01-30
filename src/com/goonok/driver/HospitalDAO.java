@@ -11,13 +11,16 @@ public class HospitalDAO {
     private static final String username = "root";
     private static final String password = "252646";
 
-    public void databaseConnect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.driver");
-
+    public HospitalDAO(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+    }
+    public void databaseConnect(){
+
         Scanner scanner = new Scanner(System.in);
 
         try {
@@ -32,7 +35,7 @@ public class HospitalDAO {
                 System.out.println("4. Book Appointment");
                 System.out.println("5. Exit");
                 System.out.println("==================================");
-                System.out.print("Enter your choice");
+                System.out.print("Enter your choice: ");
                 Scanner input = new Scanner(System.in);
                 int choice = input.nextInt();
                 switch (choice){
@@ -74,9 +77,10 @@ public class HospitalDAO {
     public static void bookAppointment(Patient patient, Doctor doctor, Connection connection, Scanner scanner){
         System.out.print("Enter patient id: ");
         int patientId = scanner.nextInt();
-        System.out.println("Enter doctor id: ");
+        System.out.print("Enter doctor id: ");
         int doctorId = scanner.nextInt();
-        System.out.println("Enter appointment date: (yyyy-mm-dd): ");
+        scanner.nextLine();
+        System.out.print("Enter appointment date: (yyyy-mm-dd): ");
         String appointmentDate = scanner.nextLine();
         if (patient.getPatientById(patientId) && doctor.getDoctorById(doctorId)){
             if (checkDoctorAvailability(doctorId, appointmentDate, connection)){
@@ -105,9 +109,9 @@ public class HospitalDAO {
     }
 
     private static boolean checkDoctorAvailability(int doctorId, String appointmentDate, Connection connection) {
-        String query = "SELECT COUNT (*) FROM appointments WHERE doctor_id = ? AND appointment_date = ?";
+        String queryForAppointment = "SELECT COUNT(id) FROM appointments WHERE doctor_id = ? AND appointment_date = ?";
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(queryForAppointment);
             preparedStatement.setInt(1, doctorId);
             preparedStatement.setString(2, appointmentDate);
             ResultSet resultSet = preparedStatement.executeQuery();
